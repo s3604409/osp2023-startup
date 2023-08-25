@@ -56,7 +56,7 @@ class reader {
 #include <fstream>
 #include <iostream>
 #include <string>
-#include <mutex>
+#include <pthread.h>
 #ifndef READER
 #define READER
 class reader {
@@ -70,7 +70,7 @@ class reader {
 
     /* perform the reading and initiating the writing from the file */
 
-    void read(std::mutex& mu);
+    void read(pthread_mutex_t* mu);
 
         
 

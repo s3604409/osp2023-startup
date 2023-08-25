@@ -39,6 +39,7 @@ class writer {
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <pthread.h>
 #include <deque>
 #ifndef WRITER
 #define WRITER
@@ -53,12 +54,11 @@ class writer {
      **/
      ~writer();
     void addToQueue(const std::string& line);
-    void run();
     /**
      * appends a line from the file read in to be output ... needed by the
      * reader class
      **/
-    void write(const std::string& line, std::mutex& mu);
+    void write(const std::string& line, pthread_mutex_t* mu);
 
    private:
     std::ofstream out;

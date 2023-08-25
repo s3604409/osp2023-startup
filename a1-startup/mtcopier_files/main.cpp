@@ -52,7 +52,7 @@ int main(int argc, char** argv) {
  **/
 #include "reader.h"
 #include "writer.h"
-#include <thread>
+#include <pthread.h>
 #include <cstdlib>
 /* global variables if needed go here */
 int main(int argc, char** argv) {

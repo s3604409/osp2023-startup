@@ -38,11 +38,18 @@ reader::~reader(){
     }
 }
 
-void reader::read(std::mutex& mu) {
+void reader::read(pthread_mutex_t* mu) {
     std::string line;
-    while (std::getline(in,line)) {
-        std::lock_guard<std::mutex> lock(mu);
+    
+    while (true) {
+        pthread_mutex_lock(mu);
+        if(!std::getline(in,line)){
+            pthread_mutex_unlock(mu);
+            break;
+        }
+        pthread_mutex_unlock(mu);
         thewriter.addToQueue(line);
+
     }
 
     thewriter.write();

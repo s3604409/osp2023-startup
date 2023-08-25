@@ -19,16 +19,12 @@ writer::~writer(){
     }
 }
 
-void writer::run() {
-    //TODO
-}
-
 void writer::addToQueue(const std::string& line) {
     
     queue.push_back(line);
 }
 
-void writer::write(const std::string& line) {
+void writer::write() {
     
     while (!queue.empty()){
         out << queue.front()<< std::endl;

@@ -1,28 +1,17 @@
-/**
- * startup code provided by Paul Miller for COSC1114 - Operating Systems
- * Principles
- **/
-#include "copier_files/reader.h"
-#include <functional>
+#include "reader.h"
 
-reader::reader(const std::string& name, writer& mywriter) {
-    in.open(name);
-    thewriter = mywriter;
-
-}
-
-reader::~reader(){
-    if (in.is_open()) {
-        in.close();
+reader::reader(const std::string& name, writer& mywriter) 
+    : in(name), thewriter(mywriter) {
+    if (!in.is_open()) {
+        std::cerr << "Error: Could not open file " << name << std::endl;
+        exit(1);
     }
 }
 
-void reader::read() {
+void reader::run() {
     std::string line;
-    while (std::getline(in,line)) {
-
-        thewriter.addToQueue(line);
+    while (std::getline(in, line)) {
+        // Appending line to writer's internal queue
+        thewriter.append(line);
     }
-
-    thewriter.write();
 }

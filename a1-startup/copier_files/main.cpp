@@ -1,27 +1,31 @@
-/**
- * startup code provided by Paul Miller for COSC1114 - Operating Systems
- * Principles
- **/
-#include "copier_files/reader.h"
-#include "copier_files/writer.h"
+#include "reader.h"
+#include "writer.h"
 #include <cstdlib>
-/* global variables if needed go here */
+#include <iostream>
+
+// Global variables, if needed, go here
+
 int main(int argc, char** argv) {
-    /* check command line arguments */
+    // Check command line arguments
     if (argc != 3) {
-        std::cerr <<:"Usage: ./copier infile outfile"<< std::endl;
-
-        return 1;
-    }
-    /* load the file and copy it to the destination */
-    reader fileRead(argv[1], writer fileWrite(argv[2]));
-    ;
-
-    if(!fileRead.is_open() || !fileWrite.is_open()) {
-        std::cerr << "Error opening files." <<std::endl;
-        return 1;
+        std::cerr << "Usage: ./copier infile outfile" << std::endl;
+        return EXIT_FAILURE;
     }
 
-    fileRead.read(fileWrite);
+    std::string infile = argv[1];
+    std::string outfile = argv[2];
+
+    // Create a writer object
+    writer theWriter(outfile);
+
+    // Create a reader object
+    reader theReader(infile, theWriter);
+
+    // Perform the reading from the file
+    theReader.run();
+
+    // Perform the writing to the output file
+    theWriter.run();
+
     return EXIT_SUCCESS;
 }

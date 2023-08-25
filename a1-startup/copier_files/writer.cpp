@@ -1,35 +1,22 @@
-/**
- * startup code provided by Paul Miller for COSC1114 - Operating Systems
- * Principles
- **/
+#include "writer.h"
 
-#include "copier_files/writer.h"
-
-/**
- * provide your implementation for the writer functions here
- **/
-writer::writer(const std::string& name) {
-    //TODO
-    out.open(name);
-}
-
-writer::~writer(){
-    if (out.is_open()) {
-        out.close();
+writer::writer(const std::string& name) : out(name) {
+    if (!out.is_open()) {
+        std::cerr << "Error: Could not open file " << name << std::endl;
+        exit(1);
     }
 }
 
-void writer::addToQueue(const std::string& line) {
-    
+void writer::run() {
+    // Write each line from the queue to the output file
+    while (!queue.empty()) {
+        std::string line = queue.front();
+        queue.pop_front();
+        out << line << std::endl;
+    }
+}
+
+void writer::append(const std::string& line) {
+    // Appends a line to the queue
     queue.push_back(line);
 }
-
-void writer::write() {
-    
-    while (!queue.empty()){
-        out << queue.front()<< std::endl;
-        queue.pop_front();
-    }
-}
-
-

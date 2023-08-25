@@ -1,8 +1,11 @@
+#ifndef READER
+#define READER
+
 /**
  * startup code provided by Paul Miller for COSC1114 - Operating Systems
  * Principles
  **/
-#include "copier_files/writer.h"
+#include "writer.h"
 #include <fstream>
 #include <iostream>
 #include <string>

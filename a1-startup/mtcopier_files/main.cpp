@@ -13,7 +13,7 @@ reader* readers;
 writer* writers;
 
 void cleanup() {
-    readers.~reader();
+    readers->~reader();
 }
 
 int main(int argc, char** argv) {

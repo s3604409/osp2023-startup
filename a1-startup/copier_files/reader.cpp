@@ -5,6 +5,8 @@
 #include "reader.h"
 #include <functional>
 
-reader::reader(const std::string& name, writer& mywriter) {}
+reader::reader(const std::string& name, writer& mywriter) {
+    in.open(name);
+}
 
-void reader::run() {}
+void reader::read() {}

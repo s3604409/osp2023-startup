@@ -14,8 +14,13 @@ class reader {
      * writer's queue
      */
     reader(const std::string& name, writer& mywriter);
+    ~reader();
     /* perform the reading from the file */
-    void run();
+    void copy();
+    bool is_open();
+
+
+        
 
    private:
     std::ifstream in;

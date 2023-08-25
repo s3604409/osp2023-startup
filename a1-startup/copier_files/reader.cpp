@@ -5,8 +5,18 @@
 #include "reader.h"
 #include <functional>
 
-reader::reader(const std::string& name, writer& mywriter) {
+reader::reader(const std::string& name) {
     in.open(name);
 }
 
-void reader::read() {}
+void reader::copy(writer& mywriter) {
+    //TODO
+    std::string line;
+    while (std::getline(in,line)) {
+        mywriter.write(line)
+    }
+}
+
+bool is_open() {
+    //TODO
+}

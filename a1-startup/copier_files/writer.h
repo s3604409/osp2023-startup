@@ -22,7 +22,7 @@ class writer {
      * appends a line from the file read in to be output ... needed by the
      * reader class
      **/
-    void append(const std::string& line);
+    void write(const std::string& line);
 
    private:
     std::ofstream out;

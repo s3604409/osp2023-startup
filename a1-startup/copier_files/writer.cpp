@@ -12,4 +12,4 @@ writer::writer(const std::string& name) {}
 
 void writer::run() {}
 
-void writer::append(const std::string& line) {}
+void writer::write(const std::string& line) {}

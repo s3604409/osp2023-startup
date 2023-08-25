@@ -42,20 +42,24 @@ writer::~writer(){
     }
 }
 
-void writer::run() {
-    //TODO
-}
-
 void writer::addToQueue(const std::string& line) {
     
     queue.push_back(line);
 }
 
-void writer::write(const std::string& line, std::mutex& mu) {
-    
-    while (!queue.empty()){
-        std::lock_guard<std::mutex> lock(mu);
-        out << queue.front()<< std::endl;
+void writer::write(std::mutex& mu) {
+
+    while(true) {
+        std::string line;
+        pthread_mutex_lock(mu);
+        if (!queue.empty()){
+            pthread_mutex_unlock(mu);
+            break;
+        }
+        line = queue.front();
         queue.pop_front();
+        pthread_mutex_unlock(mu);
+        out << line<< std::endl;
     }
+   
 }

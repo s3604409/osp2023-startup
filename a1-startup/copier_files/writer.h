@@ -19,12 +19,12 @@ class writer {
      **/
      ~writer();
     void addToQueue(const std::string& line);
-    void run();
+   
     /**
      * appends a line from the file read in to be output ... needed by the
      * reader class
      **/
-    void write(const std::string& line);
+    void write();
 
    private:
     std::ofstream out;

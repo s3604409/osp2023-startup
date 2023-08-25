@@ -42,3 +42,45 @@ int main(int argc, char** argv) {
       **/
     return EXIT_SUCCESS;
 }
+
+
+///////
+
+/**
+ * startup code provided by Paul Miller for COSC1114 - Operating Systems
+ * Principles
+ **/
+#include "reader.h"
+#include "writer.h"
+#include <thread>
+#include <cstdlib>
+/* global variables if needed go here */
+int main(int argc, char** argv) {
+    /* check command line arguments */
+    if (argc != 3) {
+        std::cerr <<:"Usage: ./mtcopier infile outfile"<< std::endl;
+
+        return 1;
+    }
+    /* load the file and copy it to the destination */
+    reader fileRead(argv[1], writer fileWrite(argv[2]));
+    ;
+
+    if(!fileRead.is_open() || !fileWrite.is_open()) {
+        std::cerr << "Error opening files." <<std::endl;
+        return 1;
+    }
+
+    std::mutex mu;
+    std::thread reader1(&reader::read, &fileRead, std::ref(fileWrite), std::ref(mu));
+    std::thread reader2(&reader::read, &fileRead, std::ref(fileWrite), std::ref(mu));
+    
+    std::thread writer1(&FileWriter::write, &fileWrite, std::ref(mu));
+    std::thread writer2(&FileWriter::write, &fileWrite, std::ref(mu));
+    reader1.join();
+    reader2.join();
+    
+    writer1.join();
+    writer2.join();
+    return EXIT_SUCCESS;
+}

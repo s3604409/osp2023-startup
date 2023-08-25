@@ -8,8 +8,32 @@
 /**
  * provide your implementation for the writer functions here
  **/
-writer::writer(const std::string& name) {}
+writer::writer(const std::string& name) {
+    //TODO
+    out.open(name);
+}
 
-void writer::run() {}
+writer::~writer(){
+    if (out.is_open()) {
+        out.close();
+    }
+}
 
-void writer::write(const std::string& line) {}
+void writer::run() {
+    //TODO
+}
+
+void writer::addToQueue(const std::string& line) {
+    
+    queue.push_back(line);
+}
+
+void writer::write(const std::string& line) {
+    
+    while (!queue.empty()){
+        out << queue.front()<< std::endl;
+        queue.pop_front();
+    }
+}
+
+

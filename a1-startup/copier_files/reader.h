@@ -21,7 +21,6 @@ class reader {
 
     void read();
 
-    bool isOpen();
         
 
    private:

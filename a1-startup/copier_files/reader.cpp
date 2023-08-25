@@ -11,14 +11,18 @@ reader::reader(const std::string& name, writer& mywriter) {
 
 }
 
+reader::~reader(){
+    if (in.is_open()) {
+        in.close();
+    }
+}
+
 void reader::read() {
     std::string line;
     while (std::getline(in,line)) {
 
         thewriter.addToQueue(line);
     }
-}
 
-bool isOpen() {
-    return in.isOpen();
+    thewriter.write();
 }

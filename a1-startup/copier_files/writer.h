@@ -18,7 +18,6 @@ class writer {
      * does the actual writing
      **/
      ~writer();
-    bool isOpen();
     void addToQueue(const std::string& line);
     void run();
     /**

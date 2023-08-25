@@ -5,18 +5,20 @@
 #include "reader.h"
 #include <functional>
 
-reader::reader(const std::string& name) {
+reader::reader(const std::string& name, writer& mywriter) {
     in.open(name);
+    thewriter = mywriter;
+
 }
 
-void reader::copy(writer& mywriter) {
-    //TODO
+void reader::read() {
     std::string line;
     while (std::getline(in,line)) {
-        mywriter.write(line)
+
+        thewriter.addToQueue(line);
     }
 }
 
-bool is_open() {
-    //TODO
+bool isOpen() {
+    return in.isOpen();
 }

@@ -13,13 +13,15 @@ class reader {
     /* create a reader that reads each line of the file and appends it to the
      * writer's queue
      */
-    reader(const std::string& name);
+    reader(const std::string& name, writer& mywriter);
+
     ~reader();
-    /* perform the reading from the file */
-    void copy(writer& mywriter);
-    bool is_open();
 
+    /* perform the reading and initiating the writing from the file */
 
+    void read();
+
+    bool isOpen();
         
 
    private:

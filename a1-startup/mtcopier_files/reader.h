@@ -22,7 +22,8 @@ class reader {
      * file. There will be other things which you will need to figure out
      * as you complete the assignment.
      **/
-      FileReader() = default;
+      reader() = default;
+      ~reader();
       static void init(const std::string& name);
 
     /**
@@ -51,37 +52,4 @@ class reader {
 };
 #endif
 
-
-
-/**
- * startup code provided by Paul Miller for COSC1114 - Operating Systems
- * Principles
- **/
-#include "mtcopier_files/writer.h"
-#include <fstream>
-#include <iostream>
-#include <string>
-#include <pthread.h>
-#ifndef READER
-#define READER
-class reader {
-   public:
-    /* create a reader that reads each line of the file and appends it to the
-     * writer's queue
-     */
-    reader(const std::string& name, writer& mywriter);
-
-    ~reader();
-
-    /* perform the reading and initiating the writing from the file */
-
-    void read(pthread_mutex_t* mu);
-
-        
-
-   private:
-    std::ifstream in;
-    writer& thewriter;
-};
-#endif
 

@@ -2,8 +2,8 @@
  * startup code provided by Paul Miller for COSC1114 - Operating Systems
  * Principles
  **/
-#include "reader.h"
-#include "writer.h"
+#include "mtcopier_files/reader.h"
+#include "mtcopier_files/writer.h"
 #include <cstdlib>
 /**
  * these need to be global variables as you'll need handle cleaning them up in
@@ -13,9 +13,7 @@ reader* readers;
 writer* writers;
 
 void cleanup() {
-    /**
-     * perform any cleanup you need to do here for global pointers
-     **/
+    readers.~reader();
 }
 
 int main(int argc, char** argv) {

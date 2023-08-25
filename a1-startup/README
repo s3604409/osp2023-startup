@@ -1,0 +1,36 @@
+File Copier
+This project consists of two versions of a file copying program: a single-threaded version (copier) and a multi-threaded version (mtcopier).
+
+Requirements
+C++ Compiler with C++20 support (e.g., GCC 9 or later)
+Make
+
+
+COMPILATION:
+- Using Make
+To compile the project, navigate to the project's root directory in the terminal and run:
+
+make copier  # For the single-threaded version
+
+OR
+
+make mtcopier  # For the multi-threaded version
+
+
+
+
+Running the Program
+After compilation, you will see two executables: copier and mtcopier.
+
+Single-Threaded Version
+To run the single-threaded version, execute:
+
+./copier <input_file> <output_file>
+<input_file>: The address of the file you want to copy.
+<output_file>: The destination file to which the contents will be copied.
+Example:
+
+Cleaning Up
+To remove the compiled executables, run:
+
+make clean

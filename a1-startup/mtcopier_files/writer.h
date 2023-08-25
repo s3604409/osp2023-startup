@@ -20,6 +20,7 @@ class writer {
      * needs to be static. You can pass in instances into the function as
      * pointers though.
      **/
+    
     static void init(const std::string& name);
     static void* runner(void*);
     void run();

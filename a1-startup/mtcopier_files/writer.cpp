@@ -2,64 +2,53 @@
  * startup code provided by Paul Miller for COSC1114 - Operating Systems
  * Principles
  **/
-#include "writer.h"
+#include "mtcopier_files/writer.h"
 
-#include "reader.h"
+#include "mtcopier_files/reader.h"
 
+std::string FileWriter::out;
+std::ofstream FileWriter::fileOut;
+std::deque<std::string> FileWriter::queue;
+pthread_mutex_t FileWriter::queue_mutex;
+bool FileWriter::finished = false;
 /**
  * implement these functions requred for the writer class
  **/
-void writer::init(const std::string& name) {}
-
-void writer::run() {}
-
-void* writer::runner(void* arg) { return nullptr; }
-
-void writer::append(const std::string& line) {}
-
-void writer::setfinished() {}
-
-/////
-
-/**
- * startup code provided by Paul Miller for COSC1114 - Operating Systems
- * Principles
- **/
-
-#include "writer.h"
-
-/**
- * provide your implementation for the writer functions here
- **/
-writer::writer(const std::string& name) {
-    //TODO
-    out.open(name);
+void writer::init(const std::string& name ) {
+    out = name;
+    fileOut.open(out);
+    pthread_mutex_init(&queue_mutex, nullptr);
 }
 
-writer::~writer(){
-    if (out.is_open()) {
-        out.close();
+void writer::run() {
+     while (!finished || !queue.empty()) { 
+        write();
     }
+    outfile.close();
 }
+
+void* writer::runner(void* arg) { 
+    writer* theWriter = static_cast<writer*>(arg);
+    writer->run();
+    return nullptr; }
 
 void writer::addToQueue(const std::string& line) {
-    
+    pthread_mutex_lock(&queue_mutex);
     queue.push_back(line);
+    pthread_mutex_unlock(&queue_mutex);
+}
+
+void writer::setfinished() {
+    finished = true;
 }
 
 void writer::write(std::mutex& mu) {
+    pthread_mutex_lock(&queue_mutex);
 
-    while(true) {
-        std::string line;
-        pthread_mutex_lock(mu);
-        if (!queue.empty()){
-            pthread_mutex_unlock(mu);
-            break;
-        }
-        line = queue.front();
+    while(!queue.empty()) {
+        std::string line= queue.front();
         queue.pop_front();
-        pthread_mutex_unlock(mu);
-        out << line<< std::endl;
+        outfile << line << std::endl;
     }
-   
+    pthread_mutex_unlock(&queue_mutex);
 }

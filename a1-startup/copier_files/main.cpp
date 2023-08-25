@@ -2,8 +2,8 @@
  * startup code provided by Paul Miller for COSC1114 - Operating Systems
  * Principles
  **/
-#include "reader.h"
-#include "writer.h"
+#include "copier_files/reader.h"
+#include "copier_files/writer.h"
 #include <cstdlib>
 /* global variables if needed go here */
 int main(int argc, char** argv) {

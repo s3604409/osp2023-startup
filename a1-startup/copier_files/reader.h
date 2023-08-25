@@ -2,7 +2,7 @@
  * startup code provided by Paul Miller for COSC1114 - Operating Systems
  * Principles
  **/
-#include "writer.h"
+#include "copier_files/writer.h"
 #include <fstream>
 #include <iostream>
 #include <string>

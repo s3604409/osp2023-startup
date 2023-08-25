@@ -29,5 +29,6 @@ class writer {
    private:
     std::ofstream out;
     std::deque<std::string> queue;
+    
 };
 #endif

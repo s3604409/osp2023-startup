@@ -23,45 +23,16 @@ class writer {
     static void init(const std::string& name);
     static void* runner(void*);
     void run();
-    static void append(const std::string& line);
+    static void addToQueue(const std::string& line);
+    void setfinished();
 
    private:
     static std::ofstream out;
+    static std::ofstream fileOut;
     static std::deque<std::string> queue;
+    pthread_mutex_t queue_mutex;
+    static bool finished; 
+    void write();
 };
 #endif
-//////////
 
-/**
- * startup code provided by Paul Miller for COSC1114 - Operating Systems
- * Principles
- **/
-#include <fstream>
-#include <iostream>
-#include <string>
-#include <pthread.h>
-#include <deque>
-#ifndef WRITER
-#define WRITER
-class writer {
-   public:
-    /**
-     * creates the writer instance that writes out to the file
-     **/
-    writer(const std::string& name);
-    /**
-     * does the actual writing
-     **/
-     ~writer();
-    void addToQueue(const std::string& line);
-    /**
-     * appends a line from the file read in to be output ... needed by the
-     * reader class
-     **/
-    void write(const std::string& line, pthread_mutex_t* mu);
-
-   private:
-    std::ofstream out;
-    std::deque<std::string> queue;
-};
-#endif

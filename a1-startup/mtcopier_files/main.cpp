@@ -50,8 +50,8 @@ int main(int argc, char** argv) {
  * startup code provided by Paul Miller for COSC1114 - Operating Systems
  * Principles
  **/
-#include "reader.h"
-#include "writer.h"
+#include "mtcopier_files/reader.h"
+#include "mtcopier_files/writer.h"
 #include <pthread.h>
 #include <cstdlib>
 /* global variables if needed go here */
